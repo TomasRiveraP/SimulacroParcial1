@@ -15,25 +15,25 @@ import java.util.Scanner;
 public class Restaurante {
     
     private static java.sql.Connection con;
-    
+    ///Conexion con SQL
     public static String driver  = "com.mysql.jdbc.Driver";
     public static String user = "root";
     public static String pass = "";
     public static String url = "jdbc:mysql://localhost:3306/test1";
     
-    
+    ///Se declara al menu y a los pedidos un arraylist
     private static List<Plato> menu = new ArrayList<>();
     private static List<Pedido> pedidos = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException{
         
-        //iniciar();
+        
         // Crear el menú
         menu.add(new Plato("Hamburguesa", 8.99));
         menu.add(new Plato("Pizza", 10.99));
         menu.add(new Plato("Ensalada", 6.99));
-
+        ///Switch para menu de consola
         int opcion;
         do {
             System.out.println("Seleccione una opcion a seguir: ");
@@ -60,7 +60,7 @@ public class Restaurante {
             }
         } while (opcion != 4);
     }
-
+    ///Para que se itere al arraylist menu y muestre su contenido en la terminal
     private static void mostrarMenu() {
         System.out.println("Menu Disponible:");
         
@@ -69,7 +69,7 @@ public class Restaurante {
             System.out.println(i + 1 + ". " + plato.getNombre() + " - $" + plato.getPrecio());
         }
     }
-
+    ///Genera el pedido y lo guarda en la lista local y en la base de datos
     public static void realizarPedido(Connection conexion) {
         Pedido pedido = new Pedido();
         System.out.println("Agregue platos al pedido (ingrese el numero de plato y cantidad):");
@@ -107,7 +107,7 @@ public class Restaurante {
         pedidos.add(pedido);
         System.out.println("Pedido realizado con exito.");
     }
-
+    ///Muestra los pedidos realizados
     private static void mostrarPedidos() {
         System.out.println("Pedidos Realizados:");
         for (int i = 0; i < pedidos.size(); i++) {
@@ -116,21 +116,7 @@ public class Restaurante {
             pedido.mostrarPedido();
         }
     }
-    public static void iniciar(){
-        con = null;
-        try {
-
-            con =  DriverManager.getConnection(url, user, pass);
-            if (con != null) {
-                System.out.println("Conexión exitosa");
-            }
-        } catch (SQLException e) {
-            System.out.println("Conexión no exitosa");
-        }
-        
-        
-        
-    }
+    ///Inserta el pedido en la base de datos
     private static void insertarPedidoEnBaseDeDatos(Connection conexion, Pedido pedido) {
     String sql = "INSERT INTO pedidos (cantidad, plato, precio ) VALUES (?, ?, ?)";
 

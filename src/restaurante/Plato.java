@@ -5,6 +5,7 @@ package restaurante;
  *
  * @author ESTUDIANTE
  */
+///Se declaran los atributos de la clase plato y los metodos para su creacion, y los get)
 public class Plato {
     private String nombre;
     
